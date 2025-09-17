@@ -139,6 +139,47 @@ module sync_dpram#(
 
 endmodule
 
+module async_tpram#(
+    parameter depth = 512,
+    parameter width = 8,
+    localparam addr_w = $clog2(depth)
+    )(
+    input                          wr_clk,    // 写时钟
+    input                          rd_clk,    // 读时钟
+
+    input                          wr_ena,    // 写使能
+    input                          rd_enb,    // 读使能
+    input [addr_w-1:0]             addra,     // 写地址
+    input [addr_w-1:0]             addrb,     // 读地址
+    input [width-1:0]              data_in_a, // 写入数据
+    output reg [width-1:0]         data_out_b // 读出数据
+    );
+
+    // 定义存储器
+    // (* RAM_STYLE="BLOCK" *)
+     reg [width-1:0] ram [depth-1:0]; // 可根据需求替换为 "distributed"
+
+    integer i;
+    initial begin
+        for (i = 0; i < depth; i = i + 1) begin
+            ram[i] = 0;
+        end
+    end
+
+    always @(posedge wr_clk) begin
+        if (wr_ena) begin
+            ram[addra] <= data_in_a;
+        end
+    end
+
+    always @(posedge rd_clk) begin
+        if (rd_enb) begin
+            data_out_b <= ram[addrb];
+        end
+    end
+
+endmodule
+
 //RAM仿真初始化
     //reg [DATA_WIDTH-1:0] ram [DEPTH-1:0];
     //integer i;
