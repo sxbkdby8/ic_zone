@@ -1,7 +1,7 @@
 VCS = vcs
 VERDI = verdi
 
-TARGET_DIR := $(shell pwd)/fifo  # CHECKME
+TARGET_DIR := $(shell pwd)/cdc # fifo  # CHECKME
 
 # Define the source files
 PROJ_DIR := $(shell pwd)
@@ -12,7 +12,8 @@ SRC_DIR := $(SIM_DIR)/src
 # Define the top module name
 # TOP_MODULE = $(TARGET_DIR)/sync_tb
 # TOP_MODULE = tb_SyncPulse
-TOP_MODULE = async_fifo_tb
+# TOP_MODULE = async_fifo_tb
+TOP_MODULE = tb_div_3
 
 # Define the simulation binary
 SIM_BINARY = $(SIM_DIR)/simv

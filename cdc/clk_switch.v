@@ -1,3 +1,4 @@
+`timescale 1ns / 1ps
 
 // Glitch-free clock switch
 module sync_clk_switch(
@@ -41,5 +42,4 @@ module async_clk_switch(  // TODO : verify
     gnrl_dffr #(1) (out_b_dly1, out_b_dly2, clk_b, rst_n);
 
     assign clk_out = (out_a_dly2 && clk_a) || (out_b_dly2 && clk_b);
-
 endmodule
